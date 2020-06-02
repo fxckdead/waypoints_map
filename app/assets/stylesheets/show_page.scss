@@ -1,0 +1,54 @@
+@import "mapbox-gl/dist/mapbox-gl.css";
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+#map {
+  height: 100vh;
+  width: 100%;
+}
+
+.mapboxgl-popup {
+  max-width: 200px;
+}
+
+.mapboxgl-popup-content {
+  text-align: center;
+}
+
+#sidebar {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  background: #fff;
+  border-radius: 15px;
+  padding: 15px;
+  color: #333333;
+  box-shadow: 0 0 0 2px rgba(0,0,0,.1);
+  max-height: 60vh;
+  overflow: auto;
+
+  h3 {
+    margin-top: 0;
+  }
+  ul {
+    padding: 0;
+
+    li {
+      list-style: none;
+      margin: 8px 0;
+
+      a {
+        text-decoration: none;
+        color: #8c8c8c;
+        font-weight: bold;
+
+        &:hover {
+          color: #f4b423;
+        }
+      }
+    }
+  }
+}

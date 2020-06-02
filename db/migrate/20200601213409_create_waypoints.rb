@@ -11,5 +11,6 @@ class CreateWaypoints < ActiveRecord::Migration[6.0]
     end
 
     add_index :waypoints, :sent_at
+    add_index :waypoints, [:sent_at, :vehicle_id]
   end
 end

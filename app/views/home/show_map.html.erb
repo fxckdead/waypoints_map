@@ -1,1 +1,20 @@
-mapita
+<div id="map"></div>
+<div id="sidebar">
+  <h3>Vehicles</h3>
+  <ul>
+  
+    <% @vehicles.each do |v| %>
+      <li>
+        <a href="#" class="link-vehicle" data-id="<%= v["vehicleid"] %>"><%= v["identifier"] %></a>
+      </li>
+    <% end %>
+  </ul>
+</div>
+
+<script>
+  const BEE_URL = "<%= image_url('bee.png') %>";
+  // this is the rustic way of doing it without AJAX
+  const VEHICLES = <%= raw @vehicles.to_json %>;
+</script>
+<%= stylesheet_link_tag 'show_page', media: 'all' %>
+<%= javascript_pack_tag 'show_page' %>

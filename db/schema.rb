@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(version: 2020_06_01_213409) do
     t.float "longitude", null: false
     t.datetime "sent_at", null: false
     t.datetime "created_at", null: false
+    t.index ["sent_at", "vehicle_id"], name: "index_waypoints_on_sent_at_and_vehicle_id"
     t.index ["sent_at"], name: "index_waypoints_on_sent_at"
     t.index ["vehicle_id"], name: "index_waypoints_on_vehicle_id"
   end
