@@ -4,7 +4,7 @@ require "rails_helper"
 RSpec.describe "GPS API", type: :request do
   subject { post request_path, params: params }
 
-  #init test data
+  # init test data
   let(:request_path) { "/api/v1/gps" }
   let!(:waypoint_1) { create(:waypoint) }
   let!(:waypoint_2) { create(:waypoint) }
@@ -16,23 +16,23 @@ RSpec.describe "GPS API", type: :request do
 
       it "returns status code 201" do
         subject
-        expect(response).to have_http_status(201)
+        expect(response).to have_http_status(:created)
       end
     end
 
     context "when request params is an object" do
-      let(:params) {
+      let(:params) do
         {
           latitude: 123,
           longitude: 321,
-          sent_at: Time.now - 5.minutes,
+          sent_at: Time.now - 5.minutes.ago,
           vehicle_identifier: waypoint_1.vehicle_id,
         }
-      }
+      end
 
       it "returns status code 201" do
         subject
-        expect(response).to have_http_status(201)
+        expect(response).to have_http_status(:created)
       end
     end
 
@@ -41,16 +41,16 @@ RSpec.describe "GPS API", type: :request do
 
       it "returns status code 422" do
         subject
-        expect(response).to have_http_status(422)
+        expect(response).to have_http_status(:unprocessable_entity)
       end
     end
 
     context "when request params is empty" do
-      let(:params) { }
+      let(:params) {}
 
       it "returns status code 422" do
         subject
-        expect(response).to have_http_status(422)
+        expect(response).to have_http_status(:unprocessable_entity)
       end
     end
   end

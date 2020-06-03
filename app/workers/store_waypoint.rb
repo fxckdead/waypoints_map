@@ -1,7 +1,7 @@
 class StoreWaypoint
   include Sidekiq::Worker
 
-  def perform(latitude, longitude, sent_at, vehicle_identifier)
+  def perform(vehicle_identifier, sent_at, latitude, longitude)
     vehicle = Vehicle.create_or_find_by(identifier: vehicle_identifier)
 
     vehicle.waypoints.create(

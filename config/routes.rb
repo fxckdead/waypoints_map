@@ -7,7 +7,7 @@ Rails.application.routes.draw do
 
   get '/show', to: 'home#show_map'
 
-  namespace :api, defaults: {format: 'json'} do
+  namespace :api, defaults: { format: 'json' } do
     namespace :v1 do
       resources :gps, only: [:create]
     end

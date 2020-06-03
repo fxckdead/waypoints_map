@@ -3,5 +3,5 @@ class Vehicle < ApplicationRecord
   has_many :waypoints
 
   # validations
-  validates_presence_of :identifier
+  validates :identifier, presence: true
 end

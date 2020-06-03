@@ -36,7 +36,7 @@ const loadPoints = () => {
 
 const handleLinkClick = (e) => {
   const id = e.target.getAttribute("data-id");
-  const vehicle = VEHICLES.find((v) => v.vehicleid.toString() === id);
+  const vehicle = VEHICLES.find((v) => v.vehicle_id.toString() === id);
   if (!vehicle || !vehicle.latitude || !vehicle.longitude) {
     return;
   }
@@ -50,13 +50,13 @@ const handleLinkClick = (e) => {
 const bindLinksClick = () => {
   const elements = document.getElementsByClassName("link-vehicle");
 
-  Array.from(elements).forEach(function (element) {
+  Array.from(elements).forEach(element => {
     element.addEventListener("click", handleLinkClick);
   });
 };
 
 // avoid jQuery...
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", () => {
   mapInstance = new mapboxgl.Map({
     container: "map",
     style: "mapbox://styles/mapbox/dark-v10",
@@ -64,13 +64,13 @@ document.addEventListener("DOMContentLoaded", function () {
     center: [-70.5739411, -33.4094272],
   }).addControl(new mapboxgl.NavigationControl({ showCompass: false }));
 
-  mapInstance.on("load", function () {
+  mapInstance.on("load", () => {
     const coordinates = VEHICLES.map((v) => [v.longitude, v.latitude]);
-    const bounds = coordinates.reduce(function (bounds, coord) {
+    const bounds = coordinates.reduce((bounds, coord) => {
       return bounds.extend(coord);
     }, new mapboxgl.LngLatBounds(coordinates[0], coordinates[0]));
 
-    this.fitBounds(bounds, {
+    mapInstance.fitBounds(bounds, {
       padding: { top: 0, bottom: 0, left: 80, right: 80 },
     });
   });

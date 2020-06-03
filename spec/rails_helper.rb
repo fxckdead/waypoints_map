@@ -1,12 +1,12 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
-require 'spec_helper'
-ENV['RAILS_ENV'] ||= 'test'
-require File.expand_path('../config/environment', __dir__)
+require "spec_helper"
+ENV["RAILS_ENV"] ||= "test"
+require File.expand_path("../config/environment", __dir__)
 # Prevent database truncation if the environment is production
 abort("The Rails environment is running in production mode!") if Rails.env.production?
-require 'rspec/rails'
+require "rspec/rails"
 # Add additional requires below this line. Rails is not loaded until this point!
-require 'database_cleaner'
+require "database_cleaner"
 require "sidekiq/testing"
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
@@ -74,12 +74,12 @@ RSpec.configure do |config|
 
   # add `FactoryBot` methods
   config.include FactoryBot::Syntax::Methods
-  
+
   config.before(:suite) do
     # clean database before start
     DatabaseCleaner.clean_with(:truncation)
     DatabaseCleaner.strategy = :transaction
-    
+
     # fake sidekiq so it doesnt run jobs
     Sidekiq::Testing.fake! unless Sidekiq::Testing.inline?
   end

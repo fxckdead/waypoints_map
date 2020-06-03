@@ -3,5 +3,5 @@ class Waypoint < ApplicationRecord
   belongs_to :vehicle
 
   # validations
-  validates_presence_of :vehicle_id, :latitude, :longitude, :sent_at
+  validates :vehicle_id, :latitude, :longitude, :sent_at, presence: true
 end

@@ -2,10 +2,11 @@
 require "rails_helper"
 
 RSpec.describe StoreWaypoint, type: :worker do
-  before { described_class.jobs.clear }
-  subject { described_class.perform_async(latitude, longitude, sent_at, vehicle_identifier) }
+  subject { described_class.perform_async(vehicle_identifier, sent_at, latitude, longitude) }
 
-  #init test data
+  before { described_class.jobs.clear }
+
+  # init test data
   let!(:existing_vehicle) { create(:vehicle) }
   let(:latitude) { -33 }
   let(:longitude) { -70 }
@@ -35,7 +36,7 @@ RSpec.describe StoreWaypoint, type: :worker do
 
   describe "proccess a waypoint" do
     context "receives valid parameters" do
-      it "should add a new Waypoint" do
+      it "adds a new Waypoint" do
         Sidekiq::Testing.inline! do
           expect { subject }.to change(Waypoint, :count).by(1)
         end
@@ -44,13 +45,13 @@ RSpec.describe StoreWaypoint, type: :worker do
       context "with uncreated vehicle" do
         let(:vehicle_identifier) { "I_SHOULD_NOT_EXISTS" }
 
-        it "should add a new vehicle" do
+        it "adds a new vehicle" do
           Sidekiq::Testing.inline! do
             expect { subject }.to change(Vehicle, :count).by(1)
           end
         end
 
-        it "should add a new waypoint" do
+        it "adds a new waypoint" do
           Sidekiq::Testing.inline! do
             expect { subject }.to change(Waypoint, :count).by(1)
           end
@@ -61,7 +62,7 @@ RSpec.describe StoreWaypoint, type: :worker do
     context "receives invalid parameters" do
       let(:vehicle_identifier) { nil }
 
-      it "should raise exception" do
+      it "raises exception" do
         Sidekiq::Testing.inline! do
           expect { subject }.to raise_error(ActiveRecord::RecordNotSaved)
         end
