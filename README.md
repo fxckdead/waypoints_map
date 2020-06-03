@@ -23,7 +23,7 @@ The setups steps expect following tools installed on the system.
 ##### 1. Check out the repository
 
 ```bash
-git clone git@github.com:fxckdead/beetrack_gps_tracker.git
+git clone git@github.com:fxckdead/waypoints_map.git
 ```
 
 ##### 2. Install project dependencies
